@@ -2,6 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const Products = require("./Models/products.model.js");
+const dotenv =require("dotenv");
+
+dotenv.config();
+const PORT = process.env.PORT || 3000;
 
 
 
@@ -11,9 +15,7 @@ app.use(express.json());
 
 const ConnectDB = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://nagarajpriyan2004_db_user:manikandan-704@curd.klwsqhp.mongodb.net/Node-API?appName=CURD",
-    );
+    await mongoose.connect(process.env.MongoDB_URI);
     console.log("MongoDB Connected Successfully");
   } catch (error) {
     console.error(`Connection failed`, error);
@@ -24,7 +26,7 @@ const ConnectDB = async () => {
 // Running Server on Port 3000 after the Db connection
 
 ConnectDB().then(() => {
-  app.listen(3000, () => {
+  app.listen(PORT, () => {
     console.log("Server is running");
   });
 }
