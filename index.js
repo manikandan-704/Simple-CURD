@@ -15,8 +15,8 @@ app.use(express.json());
 
 const ConnectDB = async () => {
   try {
-    await mongoose.connect(process.env.MongoDB_URI);
-    console.log("MongoDB Connected Successfully");
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected...`);
   } catch (error) {
     console.error(`Connection failed`, error);
     process.exit(1);
@@ -27,7 +27,7 @@ const ConnectDB = async () => {
 
 ConnectDB().then(() => {
   app.listen(PORT, () => {
-    console.log("Server is running");
+    console.log(`Server is running at http://localhost:${PORT}`);
   });
 }
 );
@@ -35,6 +35,7 @@ ConnectDB().then(() => {
 // GET-Read
 
 app.get("/", (req, res) => {
+  console.log("server is running")
   res.send("Hello from Node API server");
 });
 
