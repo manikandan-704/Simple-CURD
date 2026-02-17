@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
   res.send("Hello from Node API server");
 });
 
-//Post - Create a product
+// Post - Create a product
 
 app.post("/addproduct",async (req,res)=>{
     try {
@@ -51,7 +51,7 @@ app.post("/addproduct",async (req,res)=>{
     }
 });
 
-//Get all products
+// Get - all products
 
 app.get("/products",async (req,res)=>{
     try {
@@ -63,7 +63,7 @@ app.get("/products",async (req,res)=>{
     }
 });
 
-// Get a Single product
+// Get - a Single product
  
 app.get("/products/:id",async (req,res)=>{
     try {
@@ -76,7 +76,7 @@ app.get("/products/:id",async (req,res)=>{
     }
 });
 
-//Put - Update the product
+// Put - Update the product
 
 app.put("/product/:id", async(req,res)=>{
   try {
