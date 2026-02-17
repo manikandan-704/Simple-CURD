@@ -8,6 +8,7 @@ dotenv.config();
 const PORT = 3000;
 
 
+//Middleware
 
 app.use(express.json());
 
@@ -32,24 +33,25 @@ ConnectDB().then(() => {
 }
 );
 
-// GET-Read
+// GET Method
 
 app.get("/", (req, res) => {
-  console.log("server is running")
   res.send("Hello from Node API server");
 });
 
-//Post - Create
+//Post - Create a product
 
-app.post("/product",async (req,res)=>{
+app.post("/addproduct",async (req,res)=>{
     try {
-      const product=await Products.create(req.body); 
-      res.status(200).json(product);
+      const addproduct=await Products.create(req.body); 
+      res.status(200).json(addproduct);
     } 
     catch (error) {
-        res.status(500).json({message: error.message})
+        res.status(500).json({message: error.message});
     }
 });
+
+//Get all products
 
 app.get("/products",async (req,res)=>{
     try {
@@ -57,6 +59,37 @@ app.get("/products",async (req,res)=>{
       res.status(200).json(products);
     } 
     catch (error) {
-        res.status(500).json({message: error.message})
+        res.status(500).json({message: error.message});
     }
+});
+
+// Get a Single product
+ 
+app.get("/products/:id",async (req,res)=>{
+    try {
+      const {id} = req.params;
+      const product=await Products.findById(id); 
+      res.status(200).json(product);
+    } 
+    catch (error) {
+        res.status(500).json({message: error.message});
+    }
+});
+
+//Put - Update the product
+
+app.put("/product/:id", async(req,res)=>{
+  try {
+    const {id}=req.params;
+    const product=await Products.findByIdAndUpdate(id,req.body);
+    if(!product){
+      return res.status(404).json({message:"Product not found"});
+    }
+    const UpdatedProduct=await Products.findById(id);
+    res.status(200).json(res.UpdatedProduct);
+  
+  } catch (error) {
+     res.status(500).json({message: error.message});
+  }
+    
 });
